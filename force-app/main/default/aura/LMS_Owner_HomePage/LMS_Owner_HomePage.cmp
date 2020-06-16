@@ -1,0 +1,114 @@
+<aura:component controller="LMS_Owner_Search_Controller" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="PageHeading" type="String" default="Home Page" /> 
+    <aura:attribute name ="result" type = "boolean" default ="false" />
+    <aura:attribute name ="error" type = "boolean" default ="false" />
+    <aura:attribute name="locality" type="String" />
+    <aura:attribute name = "ownerId" type = "String" />
+   <aura:attribute name = "customerId" type = "String" />
+    <c:LMS_header_with_image/> <br/>
+    
+    <br/> <br/>
+    <div class="slds-text-heading_medium" align ="center"><strong>Owner Home Page</strong></div><br/>
+   	 
+
+    <lightning:layout>
+       <lightning:layoutItem padding="around-small" size="10"><br/>
+		<div style="height:30px;">     
+               <lightning:button  class="slds-m-top--medium" label="Recently Viewed History " 
+                                 variant= "brand" onclick="{!c.RecentHistory}" />
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </div>
+           <br/>
+           
+    <form class="slds-form--stacked font">
+        
+       
+        <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_xx-small " >
+                        <div class="slds-p-top_x-small">
+                            <lightning:input label="Locality" name="locality" 
+                                             value="{!v.locality}" /> 
+    <!--<lightning:input aura:id="search_form" label="Locality"  
+                             name="locality"
+                             value="{!v.locality}"
+                             >
+                <option value="Karmanghat">Karmanghat</option>
+                <option value="Saroor Nagar">Saroor Nagar</option>
+                <option value="Ameerpet">Ameerpet</option>
+                <option value="Kompally">Kompally</option>
+        		<option value="Ambedhkar Nagar">Ambedhkar Nagar</option>
+        		
+                    </lightning:select>-->
+            </div></div>
+        
+        
+        <lightning:button variant="brand"
+                          label="Search Customers"
+                          class="slds-m-top--medium"
+                          onclick="{!c.getCustomers}" />
+           </form> 
+    </lightning:layoutItem>
+       </lightning:layout>
+    <aura:attribute name="contactList" type="LMS_Customer__c"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}" />-->
+	  
+    <aura:if isTrue ="{!v.result}">
+   
+        
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate" title="S.no">S.No</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Customer Name">Customer Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="City">City</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="State">State</div>
+                </th>
+                 <th scope="col">
+                    <div class="slds-truncate" title="Locality">Locality</div>
+                </th>
+                 <th scope="col">
+                    <div class="slds-truncate" title="Company">Company</div>
+                </th>
+                
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.contactList}" var="customer" indexVar="count">
+                <tr>
+                    <td>
+                        <div class="slds-truncate">{!count + 1}</div>
+                    </td>
+                    
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_First_Name__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerCity__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerState__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerLocality__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_Customer_Company__c}</div>
+                    </td>
+                    
+
+                </tr>
+            </aura:iteration>
+            </tbody>
+                 </table>
+
+    <aura:if isTrue ="{!v.error}"><span style ="color:black">No customers found</span><br /></aura:if></aura:if>
+    
+	
+    <c:LMS_AddingBuildingDetails_Component/>
+</aura:component>

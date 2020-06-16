@@ -1,0 +1,319 @@
+<aura:component controller="LMS_Owner_Search_Controller" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="PageHeading" type="String" default="Home Page" /> 
+    <aura:attribute name ="result" type = "boolean" default ="false" />
+    <aura:attribute name ="error" type = "boolean" default ="false" />
+    <aura:attribute name="locality" type="String" />
+    <aura:attribute name = "ownerId" type = "String" />
+   
+    <c:LMS_header_with_image/> <br/>
+    
+    <br/> <br/>
+    <div class="slds-text-heading_medium" align ="center"><strong>Owner Home Page</strong></div><br/>
+    <lightning:layout>
+       <lightning:layoutItem padding="around-small" size="10"><br/>
+           
+    <form class="slds-form--stacked font">
+        
+       
+        <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_xx-small " >
+                        <div class="slds-p-top_x-small">
+                            <lightning:input label="Locality" name="locality" 
+                                             value="{!v.locality}" /> 
+    <!--<lightning:input aura:id="search_form" label="Locality"  
+                             name="locality"
+                             value="{!v.locality}"
+                             >
+                <option value="Karmanghat">Karmanghat</option>
+                <option value="Saroor Nagar">Saroor Nagar</option>
+                <option value="Ameerpet">Ameerpet</option>
+                <option value="Kompally">Kompally</option>
+        		<option value="Ambedhkar Nagar">Ambedhkar Nagar</option>
+        		
+                    </lightning:select>-->
+            </div></div>
+        <lightning:button variant="brand"
+                          label="Search Customers"
+                          class="slds-m-top--medium"
+                          onclick="{!c.getCustomers}" />
+           </form> 
+    </lightning:layoutItem>
+       </lightning:layout>
+    <aura:attribute name="contactList" type="LMS_Customer__c"/>
+    <!--<aura:handler name="init" value="{!this}" action="{!c.doInit}" />-->
+	  
+    <aura:if isTrue ="{!v.result}">
+   
+        
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate" title="S.no">S.No</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Customer Name">Customer Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="City">City</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="State">State</div>
+                </th>
+                 <th scope="col">
+                    <div class="slds-truncate" title="Locality">Locality</div>
+                </th>
+                 <th scope="col">
+                    <div class="slds-truncate" title="Company">Company</div>
+                </th>
+               
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.contactList}" var="customer" indexVar="count">
+                <tr>
+                    <td>
+                        <div class="slds-truncate">{!count + 1}</div>
+                    </td>
+                    
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_First_Name__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerCity__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerState__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_CustomerLocality__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_Customer_Company__c}</div>
+                    </td>
+                    
+                </tr>
+            </aura:iteration>
+            </tbody>
+                 </table>
+        
+        
+        
+
+    <aura:if isTrue ="{!v.error}"><span style ="color:black">No customers found</span><br /></aura:if></aura:if>
+    
+	
+    <aura:attribute name="mydata" type="List"/>
+    <aura:attribute name="accdata" type="List"/>
+    <aura:attribute name="mydata1" type="List"/>
+    <aura:attribute name="homePage" type="LMS_Property__c" default="{'sobjectType' : 'LMS_Property__c'}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doinit1}" />
+    <aura:handler event="force:refreshView" action="{!c.doinit1}" />
+    
+    <aura:attribute name="ListOfOption" type="List" default="[{'label':'Car parking','value':'Car parking'},
+                                                                          {'label':'Lift facilities	','value':'Lift facilities'},
+                                                                          {'label':'Swimming pool','value':'Swimming pool'},
+                                                                          {'label':'WIFI','value':'WIFI'},
+                                                                          {'label':'Gym','value':'Gym'},
+                                                                          {'label':'Club house','value':'Club house'},
+                                                                          {'label':'Pet friendly','value':'Pet friendly'}]"></aura:attribute>
+<aura:attribute name="defaultOptions" type="List" />
+
+
+    
+    
+    <br/> <p> Or</p><br/>
+    <lightning:button label="Add Property"
+                      iconName="utility:new_window"
+                      iconPosition="left"
+                      variant="brand"
+                      onclick="{!c.newPopup}"
+                      />
+    
+    <div role="dialog" tabindex="-1" aria-labelledby="header43" aura:id="Modalbox1" class="slds-modal slds-modal_large">
+        <div class="slds-modal__container" style="width: 65%;">
+            <div class="slds-modal__header">
+               Property
+            </div>
+            
+            <div class="slds-modal__content slds-p-around--medium">
+                <div class="slds-p-left_xx-large slds-p-right_xx-large">
+                    <div class="slds-page-header" style="padding-top: 9px; padding-bottom: 9px;, padding-right: 9px;, padding-left: 10px;">
+                        <h3 style="font-size: 1rem;" title="">Property Information</h3>
+                    </div> 
+                </div>    
+                <div class="slds-grid slds-p-top_medium">
+                   <!-- <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <lightning:input aura:id="name" label="Property Name" name="myname" value="{!v.homePage.Name}" required="true"/> 
+                    </div>-->
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:select label="Property Type" name="myname" value="{!v.homePage.LMS_Property_Type__c}" required="true"> 
+                   		    <option>--None--</option>
+                            <option value="Apartment">Apartment</option>
+                        	<option value="Studio Apatment">Studio Apatment</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Villa">Villa</option>
+                            <option value="Bungalow">Bungalow</option>
+                    </lightning:select>
+                    </div>
+       
+                </div>
+                <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:select label="Property Details" name="myname" value="{!v.homePage.LMS_Property_Details__c}" required="true"> 
+                  <option value="--None--">--None--</option>
+                            <option value="1BHK">1BHK</option>
+                <option value="2BHK">2BHK</option>
+                <option value="3BHK">3BHK</option>
+                <option value="4BHK">4BHK</option>
+                            <option value="5BHK">5BHK</option>
+                        </lightning:select>
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:input label="Property Sale Value/Sq ft" type="currency" name="myname" value="{!v.homePage.LMS_Property_Sale_Value__c}" required="true"/> 
+                    </div>
+                </div>
+                
+                 <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:input label="Property Rental Value/Month" type="currency" name="myname" value="{!v.homePage.LMS_Property_Rental_Value_Month__c}" required="true"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:input label="Total Area" name="myname" value="{!v.homePage.LMS_Total_Area__c}" required="true"/> 
+                    </div>
+                </div>	
+                <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:input label="City" name="myname" value="{!v.homePage.LMS_City__c}" required="true"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:input label="Locality" name="myname" value="{!v.homePage.LMS_Locality__c}"/> 
+                    </div>
+                </div>	
+                
+                <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:input label="Gated Community" type="checkbox"  checked = "{!v.homePage.LMS_Gated_Community__c}" name="myname" value="{!v.homePage.LMS_Gated_Community__c}"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:input label="Furnished?" type="checkbox" checked="{!v.homePage.LMS_Furnished__c}" name="myname" value="{!v.homePage.LMS_Furnished__c}"/> 
+                    </div>
+                </div>
+                
+                <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:textarea label=" Address" name="myname" value="{!v.homePage.LMS_Address__c}"/> 
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <!--<lightning:select label="Aminities" name="myname" value="{!v.homePage.LMS_Aminities__c}">
+                        <option value="Car parking">Car parking</option>
+                <option value="Lift facilities">Lift facilities</option>
+                <option value="Swimming pool">Swimming pool</option>
+                <option value="WIFI">WIFI</option>
+                    </lightning:select>-->
+                        <lightning:dualListbox aura:id="selectOptions" name="Select Options"  label="Aminities" 
+                       sourceLabel="Available Options" 
+                       selectedLabel="Selected Options" 
+                       options="{!v.ListOfOption}" 
+                       value="{!v.homePage.LMS_Aminities__c}"
+
+                       />
+                    </div>
+                </div>	
+                
+                <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+						<lightning:select label="State" name="myname" value="{!v.homePage.LMS_State__c}"> 
+ 							
+                            <option value="Tamilnadu">Tamilnadu</option>
+                <option value="Andra Pradesh">Andra Pradesh</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Kerala">Kerala</option>
+                            <option value="Karnataka">Karnataka</option>
+                    </lightning:select>
+                    </div>
+                    <div class="slds-size_5-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <lightning:select label="Country" name="myname" value="{!v.homePage.Country__c}"> 
+							 
+							<option value="India">India</option>
+                <option value="Australia">Australia</option>
+                <option value="America">America</option>
+                    	</lightning:select>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="slds-modal__footer">
+                <lightning:button label="Save" onclick="{!c.saveModal}" />
+                <lightning:button label="close" onclick="{!c.closeNewModal}" />
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="slds-section slds-is-open">
+        <h3 class="slds-section__title slds-theme_shade">
+            <span class="slds-truncate slds-p-horizontal_small" title="Section Title">Properties</span>
+        </h3>
+        <br/>
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+        
+            <thead>
+                <tr class="slds-text-heading--label">
+                    <!--<th scope="col"><div class="slds-truncate" title="Property Name">Property Name</div></th>-->
+                    <th scope="col"><div class="slds-truncate" title="Property Type">Property Type</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Property Details">Property Details</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Property Sale Value/Sq ft">Property Sale Value/Sq ft</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Property  Rental Value/Month">Property  Rental Value/Month</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Total Area">Total Area</div></th>
+                    <th scope="col"><div class="slds-truncate" title="City">City</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Locality">Locality</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Facing Of Apartments">Facing Of Apartments</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Gated Community">Gated Community</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Furnished?">Furnished?</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Address">Address</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Aminities">Aminities</div></th>
+                    <th scope="col"><div class="slds-truncate" title="State">State</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Country">Country</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Agent Name">Agent Name</div></th>
+                    <th scope="col"><div class="slds-truncate" title="Agent Contact No">Agent Contact No</div></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.mydata}" var="row" indexVar="index">
+                    <tr>
+                        <!--<th scope="row"><div class="slds-truncate" title="{!row.Name}">{!row.Name}</div></th>-->
+                        <td><div class="slds-truncate" title="{!row.LMS_Property_Type__c}">{!row.LMS_Property_Type__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.LMS_Property_Details__c}">{!row.LMS_Property_Details__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_Property_Sale_Value__c}">{!row.LMS_Property_Sale_Value__c}</div></td>
+                    	<th scope="row"><div class="slds-truncate" title="{!row.LMS_Property_Rental_Value_Month__c}">{!row.LMS_Property_Rental_Value_Month__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_Total_Area__c}">{!row.LMS_Total_Area__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.LMS_City__c}">{!row.LMS_City__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_Locality__c}">{!row.LMS_Locality__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.LMS_Facing_of_Apartment__c}">{!row.LMS_Facing_of_Apartment__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_Gated_Community__c}">{!row.LMS_Gated_Community__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.LMS_Furnished__c}">{!row.LMS_Furnished__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_Address__c}">{!row.LMS_Address__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.LMS_Aminities__c}">{!row.LMS_Aminities__c}</div></th>
+                        <td><div class="slds-truncate" title="{!row.LMS_State__c}">{!row.LMS_State__c}</div></td>
+                        <th scope="row"><div class="slds-truncate" title="{!row.Country__c}">{!row.Country__c}</div></th>
+                       
+                       <th scope="row"><div class="slds-truncate" title="{!row.Agent_Name__c}">{!row.Agent_Name__c}</div></th>
+					   <th scope="row"><div class="slds-truncate" title="{!row.Agent_Phone__c	}">{!row.Agent_Phone__c	}</div></th>
+
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+
+
+</aura:component>

@@ -1,0 +1,190 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller ="LMS_PickListController" >
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" description="Call doInit function on component load to get picklist values"/>
+     
+    <!--Declare Attributes-->
+    
+    <aura:attribute name = "customerId" type = "String" />
+    
+    <aura:attribute name="properties" type="LMS_Property__c[]" />
+    <aura:attribute name="showProperties" type="boolean" default ="false" />
+    <aura:attribute name="showAgent" type="boolean" default ="false" />
+    <aura:attribute name="aminitiesList" type="List" default="[]" />
+    <aura:attribute name="selectedaminitiesList" type="List" default="[]" />
+     
+    <aura:attribute name="country" type="String" />
+    <aura:attribute name="detail" type="String" />
+    <aura:attribute name="state" type="String" />
+     <aura:attribute name="city" type="String" />             
+    <aura:attribute name="countries" type="Object" />    
+    <aura:attribute name="states" type="Object" />
+    <aura:attribute name="err" type="boolean" default = "false" />
+   
+    <aura:attribute name="details" type="Object" />
+    <aura:attribute name="furnished" type="boolean" default = "false" />
+    <aura:attribute name="gated_community" type="boolean" default = "false" />
+    <aura:attribute name="selectedaminities" type="List" default = "[]" />
+    <aura:attribute name="agent" type="LMS_Agent__c" />
+    
+    
+    <c:LMS_PicklistComponent sObjectName="LMS_Property__c" fieldName="Country__c" picklistValues="{!v.countries}" />
+    <c:LMS_PicklistComponent sObjectName="LMS_Property__c" fieldName="LMS_State__c" picklistValues="{!v.states}" />
+    
+    <c:LMS_PicklistComponent sObjectName="LMS_Property__c" fieldName="LMS_Property_Details__c" picklistValues="{!v.details}" />
+    
+    <aura:iteration items="{!v.aminities}" var="item">
+                
+            </aura:iteration>
+    
+    <c:LMS_header_with_image /><br />
+    
+    <div class="slds-text-heading_medium" align ="Center"><strong>Search Property</strong></div><br/>
+    
+        <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="12">
+		<form class="slds-form--stacked"> 
+            <div class="slds-grid slds-gutters">
+  				<div class="slds-col">
+
+    		<lightning:select aura:id="searchform" value="{!v.country}" label = "Select country" required ="true" >       
+            <option value="">Choose one...</option>
+            <aura:iteration items="{!v.countries}" var="item">
+                <option value="{!item.value}">
+                    {!item}
+                </option>
+            </aura:iteration>
+                    </lightning:select> <br />
+                    <lightning:input aura:id="searchform" name="city" label="Enter Prefered City" placeholder="your prefered city..." value ="{!v.city}"/>
+                     <br />
+                    
+                    
+		<lightning:input aura:id="searchform" type="checkbox" label="Furnished" name="furnished"  value ="{!v.furnished}" checked = "false"/>     <br />  
+      
+                </div>
+                
+                <div class="slds-col">
+                
+				<lightning:select aura:id="searchform" value="{!v.state}" label = "Select state" required ="true">       
+            <option value="">Choose one...</option>
+            <aura:iteration items="{!v.states}" var="item">
+                <option value="{!item.value}">
+                    {!item}
+                </option>
+            </aura:iteration>
+                    </lightning:select>    <br/>
+                    
+                    <lightning:select aura:id="searchform" value="{!v.detail}" label = "Select details">       
+            <option value="">Choose one...</option>
+            <aura:iteration items="{!v.details}" var="item">
+                <option value="{!item.value}">
+                    {!item}
+                </option>
+            </aura:iteration>
+                    </lightning:select> <br />
+                <lightning:input aura:id="searchform" type="checkbox" label="Gated community" name="furnished" value ="{!v.gated_community}" checked = "false"/><br />
+                
+                </div>
+                
+                <div class="slds-col">
+                <lightning:dualListbox aura:id="searchform"
+                               name="aminities"
+                               label="Select Aminities"
+                               sourceLabel="Available Aminities"
+                               selectedLabel="Selected Aminities"
+                               options="{!v.aminitiesList }"
+                               value="{!v.selectedaminitiesList}"
+                               onchange="{!c.handleGenreChange}"/>
+                
+                
+                </div>
+
+            </div> <br />
+            <div align ="center"><lightning:button aura:id="searchform" variant="brand" label="Apply Filters"  onclick="{! c.handleFilter }" /></div>
+            
+            </form></lightning:layoutItem></lightning:layout><br/>
+    <aura:if isTrue = "{!v.showProperties}">
+        
+        <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="12">
+    <div class="slds-text-heading_medium" align ="Center"><b style ="color:green">Search Results</b></div><br/>
+    <table  class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" >
+        <thead>
+        <tr class="slds-line-height_reset">
+        <th>
+        Property Name    
+        </th>
+            
+          <th>
+        Property Address    
+        </th>
+            
+            <th>
+        Area in Sq. ft   
+        </th>
+            
+            <th>
+        Rent per month   
+        </th>
+            
+            <th>
+        Value per Sq. ft    
+        </th>
+
+            <th>
+        Agent Details
+        </th>
+
+        </tr>
+            </thead>
+        <tbody>
+    <aura:iteration var="r" items="{!v.properties}" >
+        <tr class="slds-hint-parent" >
+            <td>
+        <p>{!r.Name}</p>
+             </td>
+            <td>
+        <p>{!r.LMS_Address__c}</p>
+             </td>
+            
+            <td>
+        <p>{!r.LMS_Total_Area__c}</p>
+             </td>
+            
+            <td>
+        <p>{!r.LMS_Property_Rental_Value_Month__c}</p>
+             </td>
+            
+            
+            <td>
+        <p>{!r.LMS_Property_Sale_Value__c}</p>
+             </td>
+            
+            
+            <td>
+                
+            
+                <button aura:id="contactagent" variant="brand"   onclick="{!c.getAgent}" Id='{!r.Id}'>Contact Agent</button>
+            
+            </td>
+        </tr>
+    </aura:iteration>
+            </tbody>
+    </table>
+            </lightning:layoutItem></lightning:layout>
+    </aura:if>
+    
+    <aura:if isTrue = "{!v.err}">
+    
+        <div class="slds-text-heading_medium" align ="Center"><b style ="color:red">No Results found for your criteria</b></div><br/>
+    
+    
+    </aura:if>
+    
+    <aura:if isTrue = "{!v.showAgent}">
+        <c:LMS_Customer_ContactToAgent agentId = "{!v.agent.Id}" />
+    
+    
+    </aura:if>
+        
+    
+   
+</aura:component>

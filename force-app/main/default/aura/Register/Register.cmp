@@ -1,0 +1,39 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_CustomerController" >
+    <aura:attribute name="user" type="LMS_Customer__c" 
+                    default="{ 'sobjectType': 'LMS_Customer__c',
+                            
+                            'LMS_CustomerState__c':'',
+                             'LMS_CustomerCity__c':'',
+                             'LMS_Customer_Company__c':'',
+                             'LMS_CustomerCountry__c':''
+                            }"
+                                     
+                    
+                    />
+         <aura:attribute name="parentOptions" type="List"/>
+    <aura:attribute name="dependentPicklist" type="Object"/>
+    <aura:attribute name="dependentOptions" type="List"/>
+    <aura:attribute name="disabledPick" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+     
+    <div class="slds-container--center slds-container--small slds-m-top--small">
+        <div class="slds-form--stacked">
+             
+            <lightning:select name="parentPicklist" label="Country" aura:id="parentPicklist" value="{!v.user.LMS_CustomerCountry__c}" onchange="{!c.PickChange}">
+                <option value="">None</option>
+                <aura:iteration items="{!v.parentOptions}" var="p">
+                    <option value="{!p.value}">{!p.text}</option>
+                </aura:iteration>
+            </lightning:select>
+             
+            <lightning:select name="dependentPicklist" label="Cities" disabled="{!v.disabledPick}"  value="{!v.user.LMS_CustomerCity__c}">
+                <option value="">None</option>
+                <aura:iteration items="{!v.dependentOptions}" var="d">
+                    <option value="{!d.value}">{!d.text}</option>
+                </aura:iteration>
+            </lightning:select>
+             
+        </div>        
+    </div>
+     
+</aura:component>

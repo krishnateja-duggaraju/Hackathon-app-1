@@ -1,0 +1,638 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_Owner_RegistrationController" >
+<lightning:carousel disableAutoRefresh="false" disableAutoScroll="false" scrollDuration = "3">
+        <lightning:carouselImage
+            src = "{!$Resource.buildingImage}"
+            header = "Hi!"
+            description = "Welcome to Lease Management System"
+            alternativeText = "First card accessible description."
+             >
+        </lightning:carouselImage>
+        <lightning:carouselImage
+            src = "{!$Resource.room}"
+            header = "Need an appartment?"
+            description = "LMS is the best Appartment Finder Website."
+            alternativeText = "Second card accessible description."
+            >
+        </lightning:carouselImage>
+        <lightning:carouselImage
+            src = "{!$Resource.swimmingPool}"
+            header = "Why LMS?"
+            description = "It Provides highly specific information about apartments "
+            alternativeText = "Third card accessible description."
+            href = "https://www.salesforce.com">
+        </lightning:carouselImage>
+    </lightning:carousel>
+<aura:attribute name="owner" type="LMS_Owner__c"   default="{ 'sobjectType': 'LMS_Owner__c',
+                            'LMS_OwnerFirstName__c': '',
+                            'LMS_OwnerLastName__c': '',
+                            'LMS_OwnerEmail__c': '',
+                            'LMS_OwnerPassword__c':'',
+                            'LMS_OwnerConfirmPassword__c':'',
+                            'LMS_OwnerPhone__c':'',
+                            'LMS_OwnerCompany__c':'',
+                            'LMS_OwnerAddress__c':'',
+                            'LMS_OwnerCountry__c':'',
+                           	'LMS_OwnerState__c':'',
+                            'LMS_OwnerCity__c':'',
+                            'LMS_OwnerPostalCode__c':''
+                            
+                             }"
+                   />
+    <aura:attribute name="toggleInd" type="boolean" default="true"/>
+    <aura:attribute name="toggleUS" type="boolean" />
+    <aura:attribute name="toggleAus" type="boolean" />
+    <aura:attribute name="toggleGer" type="boolean" />
+    <aura:attribute name="toggleCanada" type="boolean" />
+    
+    <aura:attribute name="toggleAndhra" type="boolean" default="true"/>
+    <aura:attribute name="toggleTelangana" type="boolean" />
+    <aura:attribute name="toggleTamil" type="boolean" />
+    <aura:attribute name="toggleKerala" type="boolean" />
+    <aura:attribute name="toggleUttarPradesh" type="boolean" />
+    
+    <aura:attribute name="toggleNewJersey" type="boolean" default="true"/>
+    <aura:attribute name="toggleVirginia" type="boolean" />
+    <aura:attribute name="toggleConnecticut" type="boolean" />
+    <aura:attribute name="toggleWhyoming" type="boolean" />
+    
+    <aura:attribute name="toggleNewSouthWales" type="boolean" default="true"/>
+    <aura:attribute name="toggleQueensland" type="boolean" />
+    <aura:attribute name="toggleTasmania" type="boolean" />
+    <aura:attribute name="toggleVictoria" type="boolean" />
+    <aura:attribute name="toggleSouthAustralia" type="boolean" />
+    
+    <aura:attribute name="toggleBavaria" type="boolean" default="true"/>
+    <aura:attribute name="toggleBerlin" type="boolean" />
+    <aura:attribute name="toggleLowerSaxony" type="boolean" />
+    <aura:attribute name="toggleSaarland" type="boolean" />
+    <aura:attribute name="toggleThuringia" type="boolean" />
+    
+    <aura:attribute name="toggleAlberta" type="boolean" default="true"/>
+    <aura:attribute name="toggleBritishColumbia" type="boolean" />
+    <aura:attribute name="toggleManitoba" type="boolean" />
+    <aura:attribute name="toggleNewBrunswick" type="boolean" />
+    <aura:attribute name="toggleNunavut" type="boolean" />
+    
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6">
+            <br/>
+            <lightning:layout verticalAlign="center" horizontalAlign="center" >
+            <div class="slds-text-heading_medium"><b>Owner Registration Form</b></div>
+            </lightning:layout>
+    <form class="slds-form--stacked font">
+        <div class="slds-grid slds-p-top_medium">
+                    <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <div class="slds-p-top_xx-large">
+       <lightning:input aura:id="ownerform" label="First Name" name="firstName"
+                        value="{!v.owner.LMS_OwnerFirstName__c}" pattern="[a-zA-Z]*"
+                        messageWhenPatternMismatch="Please enter only characters."/><br/>
+                        </div></div>
+            		<div class="slds-size_6-of-12 slds-p-left_xx-small slds-p-horizontal_x-large " >
+                        <div class="slds-p-top_xx-large">
+       <lightning:input aura:id="ownerform" label="Last Name" name="lastName" pattern="[a-zA-Z]*"
+                        value="{!v.owner.LMS_OwnerLastName__c}" required="true"
+                        messageWhenPatternMismatch="Please enter only characters."/><br/>
+                        </div></div>
+        </div>
+        <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        <lightning:input aura:id="ownerform" label="Email/Username" type="email"  name="userName" 
+                        value="{!v.owner.LMS_OwnerEmail__c}" required="true"
+                        messageWhenPatternMismatch="Enter a valid email address"
+                        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/><br/>
+                        </div>  
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       <lightning:input aura:id="ownerform" type="phone" label="Phone" name="phone" 
+                        value="{!v.owner.LMS_OwnerPhone__c}" required="true" maxlength="10" minlength="10"
+                        messageWhenPatternMismatch="please enter 10 digits" 
+                         pattern="^[0-9_ ]*$" onblur='{!c.checkValidity}'/><br/>
+                </div>
+        </div>
+        <div class="slds-grid slds-p-top_x-small">	
+                  	<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       <lightning:input aura:id="ownerformpwd" type="password" label="Password" name="password" 
+                        value="{!v.owner.LMS_OwnerPassword__c}" required="true" 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[@#$%])(?=.*[A-Z]).{8,15}"
+                        messageWhenPatternMismatch="Password length must be atleast 8 characters which contains 
+                                                    atleast one UpperCase letter,
+                                                    lowercase letter,digit and a special character" /><br/>
+                        </div>
+             <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        
+       <lightning:input aura:id="ownerformcpwd" type="password" label="Confirm Password" name="confirmpassword"
+                        value="{!v.owner.LMS_OwnerConfirmPassword__c}" required="true" 
+                        onchange="{!c.checkConfirmPassword}"
+                        
+					/><br/>
+	    </div>
+        </div>
+        <div class="slds-grid slds-p-top_x-small">	
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       <lightning:input aura:id="ownerform" label="Company" name="company"
+                        value="{!v.owner.LMS_OwnerCompany__c}" /><br/>
+           </div>
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+	   <lightning:textarea aura:id="ownerform" type="textarea" label="Address" name="address" 
+                           value="{!v.owner.LMS_OwnerAddress__c}" /><br/>
+           </div>
+        </div>
+        <div class="slds-grid slds-p-top_x-small">	
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >        
+                       
+        <lightning:select aura:id="ownerformcountry" label="Country" name="country" 
+                          value="{!v.owner.LMS_OwnerCountry__c}" onchange="{!c.toggle}"> 
+            			<option >Choose</option>
+                       <option value="India">India</option>
+                        <option value="America">America</option>
+           				<option value="Australia">Australia</option>
+            			<option value="Germany">Germany</option>
+            			<option value="Canada">Canada</option>
+        </lightning:select><br/>
+           </div>
+             <aura:if isTrue="{!v.toggleInd}">
+                 <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        <lightning:select aura:id="ownerformstate" label="State" name="State"
+                          value="{!v.owner.LMS_OwnerState__c}" onchange="{!c.toggleIndCities}" >
+            			<option >Choose</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+            			<option value="Telangana">Telangana</option>
+            			<option value="Tamil Nadu">Tamil Nadu</option>
+           				<option value="Kerala">Kerala</option>
+            			<option value="Uttar Pradesh">Uttar Pradesh</option>
+                     </lightning:select><br/>
+                 </div>
+                 
+                 <aura:set attribute="else">
+          <aura:if isTrue="{!v.toggleUS}">
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        <lightning:select aura:id="ownerformus" label="State" name="State" 
+                          value="{!v.owner.LMS_OwnerState__c}" onchange="{!c.toggleUsCities}">
+            			 <option >Choose</option>
+            			<option value="New Jersey">New Jersey</option>
+            			<option value="Virginia">Virginia</option>
+            			<option value="Connecticut">Connecticut</option>
+            			<option value="Wyoming">Wyoming</option>
+                </lightning:select>
+              </div>
+              <aura:set attribute="else">
+          <aura:if isTrue="{!v.toggleAus}">
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        <lightning:select aura:id="ownerformaus" label="State" name="State"
+                          value="{!v.owner.LMS_OwnerState__c}" onchange="{!c.toggleAusCities}" >
+            			 <option >Choose</option>
+            			<option value="New South Wales">New South Wales</option>
+            			<option value="Queensland">Queensland</option>
+            			<option value="Tasmania">Tasmania</option>
+            			<option value="Victoria">Victoria</option>
+            			<option value="South Australia">South Australia</option>
+                </lightning:select>
+              </div>
+               <aura:set attribute="else">
+          <aura:if isTrue="{!v.toggleGer}">
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        <lightning:select aura:id="ownerformger" label="State" name="State" 
+                          value="{!v.owner.LMS_OwnerState__c}" onchange="{!c.toggleGerCities}">
+            			 <option >Choose</option>
+            			<option value="Bavaria">Bavaria</option>
+            			<option value="Berlin">Berlin</option>
+            			<option value="Lower Saxony">Lower Saxony</option>
+            			<option value="Saarland">Saarland</option>
+            			<option value="Thuringia">Thuringia</option>
+                </lightning:select>
+              </div>
+              <aura:set attribute="else">
+          <aura:if isTrue="{!v.toggleCanada}">
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+        <lightning:select aura:id="ownerformcanada" label="State" name="State" 
+                          value="{!v.owner.LMS_OwnerState__c}" onchange="{!c.toggleCanadaCities}">
+            			 <option >Choose</option>
+            			<option value="Alberta">Alberta</option>
+            			<option value="British Columbia">British Columbia</option>
+            			<option value="Manitoba">Manitoba</option>
+            			<option value="New Brunswick">New Brunswick</option>
+            			<option value="Nunavut">Nunavut</option>
+                </lightning:select>
+              </div>
+                  </aura:if>
+              </aura:set>
+                     </aura:if>
+                 </aura:set>
+              
+                     </aura:if>
+                 </aura:set>
+                     </aura:if>
+                 </aura:set>
+            </aura:if>
+              </div>
+            
+        
+        <div class="slds-grid slds-p-top_x-small">
+        <aura:if isTrue="{!v.toggleAndhra}">
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       						<lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                <option >Choose</option>
+           						<option value="Vijayawada">Vijayawada</option>
+                                <option value="Guntur">Guntur</option>
+                                <option value="Vizag">Vizag</option>
+                                <option value="Kakinada">Kakinada</option>
+                                <option value="Tirupati">Tirupati</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleTelangana}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Hyderabad">Hyderabad</option>
+                                <option value="Secunderabad">Secunderabad</option>
+                                <option value="Warangal">Warangal</option>
+                                <option value="Khammam">Khammam</option>
+                                <option value="Nizamabad">Nizamabad</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleTamil}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Chennai">Chennai</option>
+                                <option value="Coimbatore">Coimbatore</option>
+                                <option value="Madurai">Madurai</option>
+                                <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                <option value="Ooty">Ooty</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleKerala}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Kochi">Kochi</option>
+                                <option value="Trivandrum">Trivandrum</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Malappuram">Malappuram</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleUttarPradesh}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Ghaziabad">Ghaziabad</option>
+                                <option value="Kanpur">Kanpur</option>
+                                <option value="Agra">Agra</option>
+                                <option value="Varanasi">Varanasi</option>
+                                <option value="Allahabad">Allahabad</option>
+                        </lightning:select>
+                     </div>
+                           
+             <aura:set attribute="else">
+            <aura:if isTrue="{!v.toggleNewJersey}">
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       						<lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                <option >Choose</option>
+           						<option value="Newark">Newark</option>
+                                <option value="Jersey City">Jersey City</option>
+                                <option value="Elizabeth">Elizabeth</option>
+                                <option value="Paterson">Paterson</option>
+                                <option value="Alloway">Alloway</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleVirginia}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Norfolk">Norfolk</option>
+                                <option value="Richmond">Richmond</option>
+                                <option value="Alexandria">Alexandria</option>
+                                <option value="Suffolk">Suffolk</option>
+                                <option value="Roanoke">Roanoke</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleConnecticut}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Ansonia ">Ansonia</option>
+                                <option value="Bethel">Bethel</option>
+                                <option value="Bethlehem">Bethlehem</option>
+                                <option value="Cornwall">Cornwall</option>
+                                <option value="Danbury">Danbury</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleWhyoming}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Centennial">Centennial</option>
+                                <option value="Hartville">Hartville</option>
+                                <option value="Pine Haven">Pine Haven</option>
+                                <option value="Wamsutter">Wamsutter</option>
+                                <option value="Powell">Powell</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+            <aura:if isTrue="{!v.toggleNewSouthWales}">
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       						<lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                <option >Choose</option>
+           						<option value="Sydney">Sydney</option>
+                                <option value="Newcastle">Newcastle</option>
+                                <option value="Wollongong">Wollongong</option>
+                                <option value="Tamworth">Tamworth</option>
+                                <option value="Lismore">Lismore</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleQueensland}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Brisbane">Brisbane</option>
+                                <option value="Townsville">Townsville</option>
+                                <option value="Mackay">Mackay</option>
+                                <option value="Gladstone">Gladstone</option>
+                                <option value="Bundaberg">Bundaberg</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleTasmania}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Ansons Bay">Ansons Bay</option>
+                                <option value="Bangor">Bangor</option>
+                                <option value="Barrington">Barrington</option>
+                                <option value="Carlton">Carlton</option>
+                                <option value="Dulcot">Dulcot</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleVictoria}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Melton">Melton</option>
+                                <option value="Geelong">Geelong</option>
+                                <option value="Wodonga">Wodonga</option>
+                                <option value="Mildura">Mildura</option>
+                                <option value="Sunbury">Sunbury</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleSouthAustralia}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Murray Bridge">Murray Bridge</option>
+                                <option value="Port Lincoln">Port Lincoln</option>
+                                <option value="Goolwa">Goolwa</option>
+                                <option value="Renmark">Renmark</option>
+                                <option value="Naracoorte">Naracoorte</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+            <aura:if isTrue="{!v.toggleBavaria}">
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       						<lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                <option >Choose</option>
+           						<option value="Nuremberg">Nuremberg</option>
+                                <option value="Augsburg">Augsburg</option>
+                                <option value="Würzburg">Würzburg</option>
+                                <option value="Bamberg">Bamberg</option>
+                                <option value="Regensburg">Regensburg</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleBerlin}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Panketal">Panketal</option>
+                                <option value="Teltow">Teltow</option>
+                                <option value="Hennigsdorf">Hennigsdorf</option>
+                                <option value="Bernau">Bernau</option>
+                                <option value="Hoppegarten">Hoppegarten</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleLowerSaxony}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Oldenburg">Oldenburg</option>
+                                <option value="Salzgitter">Salzgitter</option>
+                                <option value="Lüneburg">Lüneburg</option>
+                                <option value="Hamelin">Hamelin </option>
+                                <option value="Nordhorn">Nordhorn</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleSaarland}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Völklingen">Völklingen</option>
+                                <option value="Saarlouis">Saarlouis</option>
+                                <option value="Merzig">Merzig</option>
+                                <option value="Homburg (Saar)">Homburg (Saar)</option>
+                                <option value="Eppelborn">Eppelborn</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleThuringia}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Ballstedt">Ballstedt</option>
+                                <option value="Angelroda">Angelroda</option>
+                                <option value="Crimla">Crimla</option>
+                                <option value="Deuna">Deuna</option>
+                                <option value="Emsetal">Emsetal</option>
+                        </lightning:select>
+                     </div>
+                        
+                   <aura:set attribute="else">
+            <aura:if isTrue="{!v.toggleAlberta}">
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       						<lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                <option >Choose</option>
+           						<option value="Calgary">Calgary</option>
+                                <option value="Edmonton">Edmonton</option>
+                                <option value="Lethbridge">Lethbridge</option>
+                                <option value=" St. Albert"> St. Albert</option>
+                                <option value="Airdrie">Airdrie</option>
+                        </lightning:select>
+                     </div>
+                        
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleBritishColumbia}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Kamloops">Kamloops</option>
+                                <option value="Nanaimo">Nanaimo</option>
+                                <option value="Kelowna">Kelowna</option>
+                                <option value="Penticton">Penticton</option>
+                                <option value="Tofino">Tofino</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleManitoba}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Brandon">Brandon</option>
+                                <option value="Selkirk">Selkirk</option>
+                                <option value="Thompson">Thompson</option>
+                                <option value="Steinbach">Steinbach</option>
+                                <option value="Winkler">Winkler</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleNewBrunswick}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Bathurst">Bathurst</option>
+                                <option value="Edmundston">Edmundston</option>
+                                <option value="Miramichi ">Miramichi </option>
+                                <option value="Saint John">Saint John</option>
+                                <option value="Sunbury">Sunbury</option>
+                        </lightning:select>
+                     </div>
+                        <aura:set attribute="else">
+          			<aura:if isTrue="{!v.toggleNunavut}">
+            		<div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                                <lightning:select aura:id="ownerform" label="City" name="city" 
+                                              value="{!v.owner.LMS_OwnerCity__c}" >
+                                    <option >Choose</option>
+           						<option value="Arviat">Arviat</option>
+                                <option value="Burwell">Burwell</option>
+                                <option value="Cape Dorset">Cape Dorset</option>
+                                <option value="Dorset">Dorset</option>
+                                <option value="Fort Ross">Fort Ross</option>
+                        </lightning:select>
+                     </div>
+                        
+                            </aura:if>
+                        </aura:set>     
+                        </aura:if>
+                        </aura:set>
+                        </aura:if>
+                        </aura:set>
+                        </aura:if>
+                        </aura:set>
+                            </aura:if>
+                   </aura:set>
+                            </aura:if>
+                        </aura:set>
+                        </aura:if>
+                        </aura:set>
+                        </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                            </aura:if>
+                  </aura:set>
+                        
+                            </aura:if>
+                        </aura:set>
+                        </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                         </aura:if>
+            </aura:set>
+                        
+                        
+                            </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                         </aura:if>
+            </aura:set>
+                     
+             </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                            </aura:if>
+                        </aura:set>
+                         </aura:if>
+                     </aura:set>
+        </aura:if>
+            
+            
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+           
+       <lightning:input aura:id="ownerform" label="Postal Code" name="postalcode" 
+                        value="{!v.owner.LMS_OwnerPostalCode__c}" minlength="6" 
+                        maxlength="6" pattern="^[0-9_ ]*$"
+                        messageWhenPatternMismatch="Please enter digits only."/><br/>
+            </div>
+        </div>
+        <div class="slds-grid slds-p-top_x-small">	
+	   <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+       <lightning:select aura:id="ownerform" label="Security Question" name="securityQuestion" 
+                         value="{!v.owner.LMS_OwnerSecurityQuestion__c}" required="true">
+           				<option value="In what city were you born?">In what city were you born?</option>
+           				<option value="What is your mother maiden name?">What is your mother maiden name?</option>
+                        <option value="What is your pet name?">What is your pet name?</option>
+           				<option value="What is the name of your favourite childhood friend?">What is the name of your favourite childhood friend?</option>
+           				<option value="In what city was your first job?">In what city was your first job?</option>
+        </lightning:select><br/>
+            </div>
+            <div class="slds-size_6-of-12 slds-p-left_xx-large slds-p-horizontal_x-large " >
+                        
+       <lightning:input aura:id="ownerform" label="Answer" name="Answer"
+                        value="{!v.owner.LMS_OwnerAnswer__c}" required="true" pattern="[a-zA-Z]*"
+                        messageWhenPatternMismatch="Please enter only characters."/><br/>
+                        </div></div>
+        <div class="slds-p-top_medium">
+        <lightning:layout verticalAlign="center" horizontalAlign="center" >
+
+         <lightning:button variant="success" label="Register" onclick="{!c.registerOwner}" />
+        </lightning:layout>
+        </div>
+    </form>
+        </lightning:layoutItem>
+    </lightning:layout>
+	
+	</aura:component>

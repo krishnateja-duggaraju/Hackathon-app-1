@@ -1,0 +1,34 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+     
+    <aura:attribute name ="agentId" type = "String" />
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Agent', 'value': 'option1'},
+    {'label': 'Customer', 'value': 'option2'},
+    {'label': 'Owner', 'value': 'option3'}                                               
+    ]"/>
+    <aura:attribute name="value" type="String" default="option1"/>
+    <lightning:layout class="slds-page-header slds-page-header--object-home">
+        <lightning:layoutItem>
+            <lightning:icon iconName="standard:scan_card" alternativeText="My Agents"/>
+        </lightning:layoutItem>
+        <lightning:layoutItem padding="horizontal-small">
+            <div class="page-section page-header">
+                <h1 class="slds-text-heading--label">Agents</h1>
+                <h2 class="slds-text-heading--medium">LMS Agents</h2>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6">
+
+    <lightning:radioGroup name="radioGroupDisabled"
+                          label="You are"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          type="radio"
+                          disabled="true"/><br/>
+        <lightning:button variant="success" label="Submit" onclick="{! c.clickSubmit}"/>
+             </lightning:layoutItem>
+        
+    </lightning:layout>
+</aura:component>

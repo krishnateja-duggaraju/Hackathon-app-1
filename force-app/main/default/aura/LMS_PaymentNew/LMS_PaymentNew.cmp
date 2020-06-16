@@ -1,0 +1,25 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_PaymentControllerNew" >
+    <aura:attribute name = "accountnumber" type = "integer" />
+    <aura:attribute name = "cvv" type = "integer" />
+    <aura:attribute name = "expirydate" type="string" />
+    <lightning:layout>
+    <lightning:layoutItem padding="around-small" size="10">
+    <form class="slds-form--stacked font">
+
+        
+        
+        
+    
+          <div class="slds-text-heading_medium"><strong>Payment Form</strong></div><br/>
+    	<lightning:input aura:id="paymentform" value="{!v.accountnumber}" label="Account Number" type="text"  name="accountnumber"  required="true" placeholder="Enter your accountnumber"/><br/>
+    	<lightning:input aura:id="paymentform" value="{!v.cvv}" type="text" label="CVV Number" name="cvv" required="true" placeholder="Enter your cvv"/>
+        <lightning:input aura:id="paymentform" value="{!v.expirydate}" type="text"  label="Expiry Date" name="expirydate" required="true" placeholder="Enter your expirydate"/>
+   
+    	<lightning:button variant="brand" label="Check" onclick="{!c.payCustomer}" /> 
+        
+    </form>
+ 
+          </lightning:layoutItem>
+       </lightning:layout>   
+   
+</aura:component>

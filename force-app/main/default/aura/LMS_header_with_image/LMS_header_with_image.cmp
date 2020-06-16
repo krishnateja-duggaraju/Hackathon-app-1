@@ -1,0 +1,9 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    
+    <div align ="center" >
+    
+    <img src="https://raw.githubusercontent.com/VirtusaProject/files/master/header.PNG" alt="Description of the image" />
+  
+    
+    </div>
+</aura:component>

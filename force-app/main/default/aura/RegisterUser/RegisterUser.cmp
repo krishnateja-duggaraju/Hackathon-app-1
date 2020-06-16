@@ -1,0 +1,33 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_CustomerController" >
+	<aura:attribute name="user" type="LMS_Customer__c" 
+                    default="{ 'sobjectType': 'LMS_Customer__c',
+                            'LMS_First_Name__c': '',
+                        	'LMS_Last_Name__c': '',
+                        	'LMS_Email__c': '',
+                        	'LMS_Phone__c': '' ,
+                        	'LMS_Password__c':'',
+                			'LMS_CustomerPostalCode__c':'',
+                            'LMS_CustomerState__c':'',
+                             'LMS_CustomerCity__c':'',
+                             'LMS_Customer_Company__c':'',
+                             'LMS_CustomerCountry__c':''}"
+                    
+                    />
+    
+    <form class="slds-form--stacked">
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_col-bordered" >
+    	<lightning:input aura:id="userform" label="First Name" name="firstName" value="{!v.user.LMS_First_Name__c}"/><br/>
+    	<lightning:input aura:id="userform" label="Last Name" name="lastName" value="{!v.user.LMS_Last_Name__c}" required="true"/><br/>
+    	<lightning:input aura:id="userform" label="Email" type="email"  name="userName" value="{!v.user.LMS_Email__c}" required="true"/><br/>
+    	<lightning:input aura:id="userform" label="Phone Number" name="phoneNumber" value="{!v.user.LMS_Phone__c}" /><br/>
+    	<lightning:input aura:id="userform" type="password" label="Password" name="password" value="{!v.user.LMS_Password__c}" required="true"/><br/>
+    <!--	<lightning:input aura:id="userform" label="Confirm Password" name="confirmPassword" value="{!v.user.LMS_Password__c}" required="true"/><br/> -->
+            <lightning:input aura:id="userform" label="Postal Code" name="PostalCode" value="{!v.user.LMS_CustomerPostalCode__c}"/><br/>
+			<lightning:input aura:id="userform" label="Company" name="Company" value="{!v.user.LMS_Customer_Company__c}"/><br/>
+            <lightning:input aura:id="userform" label="Address" name="Address" value="{!v.user.LMS_CustomerAddress__c}"/><br/>
+        
+        <lightning:button variant="success" label="Register as Customer" onclick="{!c.registerUser}" />
+            </table>
+    </form>
+        
+</aura:component>

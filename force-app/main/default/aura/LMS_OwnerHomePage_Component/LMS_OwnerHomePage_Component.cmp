@@ -1,0 +1,22 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <aura:attribute name="custFirstName" type="String" />
+    <aura:attribute name="custLastName" type="String" />
+    <aura:attribute name="custCity" type="String" />
+    
+
+  <div class="demo-only" style="width: 30rem;">
+    <article class="slds-tile">
+        <h3 class="slds-tile__title slds-truncate" title="Customer Information"><a href="javascript:void(0);">Customer Information</a></h3>
+        <div class="slds-tile__detail">
+            <dl class="slds-list_horizontal slds-wrap">
+                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Customer Name:</dt>
+                <dd class="slds-item_detail slds-truncate" title="Description for first label"> {!v.custLastName}</dd>
+                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">City:</dt>
+                <dd class="slds-item_detail slds-truncate" title="Description for second label">{!v.custCity}</dd>
+                <!--<dt class=”slds-item_label slds-text-color_weak slds-truncate” title=”Third Label”>Email:</dt>
+                <dd class=”slds-item_detail slds-truncate” title=”Description for Third label”>{!v.email}</dd>   -->         
+                </dl>
+    </div>
+    </article>
+  </div>
+</aura:component>

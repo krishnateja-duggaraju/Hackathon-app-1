@@ -1,0 +1,36 @@
+<aura:component implements="flexipage:availableForAllPageTypes"  access="global" controller="LMS_CustomerController">
+	 <aura:attribute name ="customerId" type = "String" />
+    
+   
+    	<center>  <div class="slds-text-heading_large"><strong>Customer Home Page</strong></div><br/></center> 
+        <lightning:card  title="Recently Viewed History">
+        <aura:set attribute="actions">
+            <lightning:button 
+                              class="slds-m-top--medium" 
+                              label="Recently History " 
+                              variant= "brand" 
+                              onclick="{!c.RecentHistory}" /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            By clicking on the Recently Viewed History Button, You will be able to view all the property searches which you have made recently
+        </p>
+    </lightning:card>
+
+        <lightning:card  title="Search Property">
+        <aura:set attribute="actions">
+            <lightning:button 
+                              class="slds-m-top--medium" 
+                              label="Search Property " 
+                              variant= "brand" 
+                              onclick="{!c.SearchProperty}" /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            By clicking on the Search Property Button, You will be able to search different properties based on your criteria
+        </p>
+    </lightning:card>
+    
+</aura:component>

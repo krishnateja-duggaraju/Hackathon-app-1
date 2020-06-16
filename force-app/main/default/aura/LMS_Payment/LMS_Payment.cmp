@@ -1,0 +1,64 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_PaymentControllerNew" >
+    <aura:attribute name = "accountnumber" type = "double" />
+    <aura:attribute name = "cvv" type = "integer" />
+    <aura:attribute name = "expiry_month" type="integer" />
+    <aura:attribute name = "expiry_year" type="integer" />
+    <aura:attribute name ="result" type = "boolean" default ="false" />
+    <aura:attribute name ="error" type = "boolean" default ="false" />
+    <aura:attribute name ="payy" type = "LMS_Payment__c" />
+    <aura:attribute name = "negoAmount" type = "integer" default = "25000" />
+    <aura:attribute name = "customerId" type = "String" />
+    
+    <aura:attribute name = "PropertyName" type = "String" />
+    
+    <lightning:layout>
+    <lightning:layoutItem padding="around-small" size="3">
+    <form class="slds-form--stacked font">
+
+        
+        
+        
+    
+          <div class="slds-text-heading_medium"><strong>Payment Details</strong></div><br/>
+        <h2><strong>Negotiated Amount to Pay - {!v.negoAmount}</strong></h2>
+        
+        <br/> <br/>
+        <div class="slds-text-heading_medium"><strong>Enter Card Details to Verify</strong></div><br/>
+    	<lightning:input aura:id="paymentform" value="{!v.accountnumber}" label="Account Number" type="text"  name="accountnumber"  required="true" placeholder="Enter your accountnumber"/><br/>
+        <lightning:input aura:id="paymentform" value="{!v.cvv}" type="text" label="CVV Number" name="cvv" required="true" placeholder="Enter your cvv"/><br/>
+        <lightning:input aura:id="paymentform" value="{!v.expiry_month}" type="text"  label="Expiry Month" name="expirymonth" required="true" placeholder="Enter expiry month"/>&nbsp;
+   		<lightning:input aura:id="paymentform" value="{!v.expiry_year}" type="text"  label="Expiry Year" name="expiryyear" required="true" placeholder="Enter expiry year"/>
+        <br/>
+    	<lightning:button variant="brand" label="Verify Card Details" onclick="{!c.payCustomer}" /> 
+       
+    </form>
+  <aura:if isTrue ="{!v.result}">
+      <br/>
+        <div class="slds-text-heading_medium" align ="left"><b style ="color:green">Verification Successful!</b></div><br/>
+        <lightning:input aura:id="paymentform" value="{!v.payy.LMS_AccoutHolderName__c}" 
+                         label="Account Holder Name" type="text"  name="holdername"  
+                         required="true" readonly ="true"/><br/>
+             <lightning:input aura:id="paymentform" value="{!v.payy.LMS_NameOfBank__c}" 
+                         label="bank name" type="text"  name="nameofbank"  
+                         required="true" readonly ="true"/><br/>
+      	
+    
+     <!-- <c:LMS_Transaction amount = "{!v.negoAmount}" acc = "{!v.payy}" /> -->
+      
+        <lightning:button variant="brand" label="Proceed to pay" onclick="{!c.navToTransaction}" /> 
+        
+        </aura:if>
+        <aura:if isTrue ="{!v.error}"><br/><div class="slds-text-heading_medium" align ="Center"><b style ="color:red">An error occured! Cannot verify your details <br/> No records found for your details, Please check the details and try again </b></div><br/></aura:if>
+            
+          
+            
+        
+            
+    
+        
+        
+        
+          </lightning:layoutItem>
+       </lightning:layout>   
+   
+</aura:component>

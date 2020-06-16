@@ -1,0 +1,50 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId,flexipage:availableForRecordHome"  access="global" controller="LMS_AgentController">
+	 <aura:attribute name ="agentId" type = "String" />
+    
+   
+    	<center>  <div class="slds-text-heading_large"><strong>Agent Home Page</strong></div><br/></center> 
+        <lightning:card  title="Show prospecting Opportunities">
+        <aura:set attribute="actions">
+            <lightning:button 
+                              class="slds-m-top--medium" 
+                              label="Show prospecting Opportunities" 
+                              variant= "brand" 
+                              onclick="{!c.fetchProspecting}" /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            By clicking on the Show prospecting Opportunities Button, You will be able to view all the property details which has the stage as prospecting
+        </p>
+    </lightning:card>
+<lightning:card  title="Agent Search Page">
+        <aura:set attribute="actions">
+            <lightning:button 
+                              class="slds-m-top--medium" 
+                              label="Agent Search Page" 
+                              variant= "brand" 
+                              onclick="{!c.SearchPage}" /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            By clicking on the Agent Search Page Button, You will be able to search all the customers and owner registered in our LMS
+        </p>
+    </lightning:card>
+<lightning:card  title="Opportunity Page">
+        <aura:set attribute="actions">
+            <lightning:button 
+                              class="slds-m-top--medium" 
+                              label="Opportunity Page" 
+                              variant= "brand" 
+                              onclick="{!c.OppPage}" /> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+        </aura:set>
+        <p class="slds-p-horizontal_small">
+            By clicking on the Opportunity Page Button, You will be able to view all the opportunities in our LMS
+        </p>
+    </lightning:card>
+
+    
+</aura:component>

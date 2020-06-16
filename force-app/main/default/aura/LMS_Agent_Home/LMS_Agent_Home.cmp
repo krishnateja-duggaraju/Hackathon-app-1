@@ -1,0 +1,39 @@
+<aura:component implements="flexipage:availableForAllPageTypes"  access="global" controller="LMS_AgentController">
+    <aura:attribute name = 'prospectingOppList' type = 'List' />
+    <aura:attribute name = 'result' type = 'boolean' default = 'false' />
+     <aura:attribute name ="agentId" type = "String" />
+    <c:LMS_header_with_image/>
+    
+    <br/><lightning:button label = 'Show prospecting Opportunities' onclick = '{!c.SearchOpps}' /><br/>
+    <aura:if isTrue = '{!v.result}'>
+        <br/>
+        <lightning:layout horizontalAlign="spread" multipleRows="true" >
+  <aura:iteration items = '{!v.prospectingOppList}' var = 'opp'>
+      <lightning:layoutItem padding="around-small" size="3" flexibility="grow" >
+  
+    <lightning:card  title='{!opp.oppName}' iconName="standard:opportunity" footer="LMS Opportunity">
+       
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <tr class="slds-hint-parent">
+            <td><b>Opportunity Name</b></td><td>:</td> <td>{!opp.oppName}</td>
+            </tr>
+            <tr class="slds-hint-parent">
+            <td><b>Customer Name</b></td><td>:</td> <td>{!opp.customerName}</td>
+            </tr>
+            <tr class="slds-hint-parent" >
+           <td> <b>Property</b></td><td>:</td> <td> {!opp.PropertyName}</td>
+            </tr>
+            <tr class="slds-hint-parent" >
+            <td><b>Owner</b></td><td>:</td><td>{!opp.OwnerName}</td>
+            </tr>
+            
+        </table>
+    </lightning:card>
+      </lightning:layoutItem>
+         
+    </aura:iteration>
+        </lightning:layout>
+      
+</aura:if>
+    
+</aura:component>

@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMSOwnerController" >
+    <lightning:carousel disableAutoRefresh="false" disableAutoScroll="false" scrollDuration = "3">
+        <lightning:carouselImage
+            src = "{!$Resource.buildingImage}"
+            header = "Hi!"
+            description = "Welcome to Lease Management System"
+            alternativeText = "First card accessible description."
+             >
+        </lightning:carouselImage>
+        <lightning:carouselImage
+            src = "{!$Resource.room}"
+            header = "Need an appartment?"
+            description = "LMS is the best Appartment Finder Website."
+            alternativeText = "Second card accessible description."
+            >
+        </lightning:carouselImage>
+        <lightning:carouselImage
+            src = "{!$Resource.swimmingPool}"
+            header = "Why LMS?"
+            description = "It Provides highly specific information about apartments "
+            alternativeText = "Third card accessible description."
+            href = "https://www.salesforce.com">
+        </lightning:carouselImage>
+    </lightning:carousel>
+    <aura:attribute name = "email" type = "string" />
+    <aura:attribute name = "password" type = "string" />
+    <aura:attribute name = "owner" type = "LMS_Owner__c" />
+    
+
+   <lightning:layout>
+    <lightning:layoutItem padding="around-small" size="10">
+    <form class="slds-form--stacked font">
+        <div class="slds-text-heading_medium"><strong>Owner Login Form</strong></div>
+        <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_x-small " >
+                        <div class="slds-p-top_x-small">
+        <lightning:input aura:id="ownerloginform" value="{!v.email}" label="Email / Username" type="email"  name="email"  required="true" placeholder="Enter your email here"/><br/>
+    	</div></div>
+        <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_x-small " >
+                        <div class="slds-p-top_xx-small">
+                            <lightning:input aura:id="ownerloginform" value="{!v.password}" type="password" label="Password" name="password" required="true" placeholder="Enter your password here"/><br/>
+            </div></div>
+        <div style="height:30px;">
+            <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_x-small " >
+            <div class="slds-p-top_x-small">
+            <lightning:button label="New User? Register here" 
+                              class="slds-m-top--small"
+                              variant="base"
+                              onclick="{!c.navigateToMyComponent}"/>
+                </div></div>
+            </div>
+        
+         <div style="height:40px;">
+                  <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_x-small " >
+            <div class="slds-p-top_xx-small">
+            <lightning:button label="Forgot Password" 
+                              class="slds-m-top--medium"
+                              variant="base"
+                              onclick="{!c.navigateToForgotPassword}"/><br/>
+                      </div></div></div>
+   <div class="slds-size_4-of-12 slds-p-left_xx-small slds-p-horizontal_x-small " >
+        <lightning:button variant="brand"
+                          label="Login"
+                          class="slds-m-top--medium"
+                          onclick="{!c.loginOwner}" /></div>
+    </form>
+    </lightning:layoutItem>
+       </lightning:layout>
+</aura:component>

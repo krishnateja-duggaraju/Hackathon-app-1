@@ -1,0 +1,243 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_CustomerController" >
+    <aura:attribute name="user" type="LMS_Customer__c" 
+                    default="{ 'sobjectType': 'LMS_Customer__c',
+                            'LMS_First_Name__c': '',
+                            'LMS_Last_Name__c': '',
+                            'LMS_Email__c': '',
+                            'LMS_Phone__c': '' ,
+                            'LMS_Password__c':'',
+                            'LMS_CustomerPostalCode__c':'',
+                            'LMS_CustomerState__c':'',
+                             'LMS_CustomerCity__c':'',
+                             'LMS_Customer_Company__c':'',
+                             'LMS_CustomerCountry__c':'',
+                             'LMS_CustomerSecurityQuestion__c':'',
+                            'LMS_CustomerAnswer__c':''}"
+                                     
+                    
+                    />
+
+ 
+    
+    
+    <aura:attribute name="parentOptions" type="List"/>
+    <aura:attribute name="dependentPicklist" type="Object"/>
+    <aura:attribute name="dependentOptions" type="List"/>
+     <aura:attribute name="dependentCityPicklist" type="Object"/>
+    <aura:attribute name="dependentCityOptions" type="List"/>
+    <aura:attribute name="disabledPick" type="Boolean" default="true"/>
+    <aura:attribute name="disabledCityPick" type="Boolean" default="true"/>
+
+ 
+
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+     
+    <aura:attribute name ="confirm_password" type ="string" /> 
+    <aura:attribute name ="err" type ="boolean" default ="false"/> 
+         <!-- PAGE HEADER -->
+      <c:LMS_header_with_image/> <br/>
+ 
+    
+  
+  <!--  <lightning:card footer="LMS Salesforce Swag" title="Customer Registration Form"> -->
+   
+ <div class="slds-text-heading_medium" align ="center"><strong>Customer Registration Form</strong></div><br/>
+       
+<lightning:layout>
+    
+        <lightning:layoutItem padding="around-small" size="10">
+            <form class="slds-form--stacked">
+                
+                <div class="slds-text-heading_medium"><strong>Customer Details</strong></div><br/>
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col">
+            <lightning:input aura:id="userform" label="First Name" name="firstName"
+                             value="{!v.user.LMS_First_Name__c}" 
+                             maxlength="20" required="true"/><br/>
+                      
+            <lightning:input aura:id="userform" label="Email" type="email" name="userName" 
+                             value="{!v.user.LMS_Email__c}" 
+                             maxlength="30" required="true"/><br/>
+                      
+            <lightning:input aura:id="userform" type="password" label="Password" 
+                             name="password" value="{!v.user.LMS_Password__c}" 
+                             required="true" maxlength="12"/><br/>
+                      
+          <lightning:input aura:id="userform" label="Company" name="Company" 
+                           value="{!v.user.LMS_Customer_Company__c}" maxlength="20"/><br/>
+                      
+  <!--     <lightning:select aura:id="userform" label="City"  
+                             name="City"
+                             value="{!v.user.LMS_CustomerCity__c}">
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Chennai">Chennai</option>
+            </lightning:select>
+                    
+             <lightning:select aura:id="userform" label="Country"  
+                             name="Country"
+                             value="{!v.user.LMS_CustomerCountry__c}">
+                <option value="India">India</option>
+                <option value="China">China</option>
+                <option value="Australia">Australia</option>
+                <option value="Italy">Italy</option>
+            </lightning:select>-->
+                      
+                      
+                      
+                
+                  
+                  <lightning:select name="parentPicklist" label="Country" aura:id="parentPicklist" 
+                                    value="{!v.user.LMS_CustomerCountry__c}" onchange="{!c.PickChange}">
+                <option value="">None</option>
+                <aura:iteration items="{!v.parentOptions}" var="p">
+                    <option value="{!p.value}">{!p.text}</option>
+                </aura:iteration>
+            </lightning:select>
+             
+            <lightning:select name="dependentPicklist" label="State" aura:id="depPicklist" value="{!v.user.LMS_CustomerState__c}" 
+                              disabled="{!v.disabledPick}" onchange="{!c.PickCityChange}">
+                <option value="">None</option>
+                <aura:iteration items="{!v.dependentOptions}" var="d">
+                    <option value="{!d.value}">{!d.text}</option>
+                </aura:iteration>
+            </lightning:select>   
+                     
+                  
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                      
+            <lightning:input aura:id="userform" label="Postal Code"
+             name="PostalCode" value="{!v.user.LMS_CustomerPostalCode__c}" 
+             maxlength="20"/><br/>
+          
+              </div>
+                  
+                    
+                    
+             <div class="slds-col">
+          <lightning:input aura:id="userform" label="Last Name" name="lastName" 
+                           value="{!v.user.LMS_Last_Name__c}"
+                            maxlength="20" required="true"/><br/>
+          <lightning:input aura:id="userform" label="Phone Number" required="true"
+                           name="phoneNumber" value="{!v.user.LMS_Phone__c}" maxlength="10" 
+                           minlength="10" pattern="^[0-9_ ]*$"
+                           messageWhenPatternMismatch="Please enter 10 digits"/><br/>
+          <lightning:input aura:id="userform" type="password" label="Confirm Password" 
+                           name="confirm_password" value="{!v.confirm_password}" 
+                           required="true" maxlength="12"/>
+                    <aura:if isTrue="{!v.err}">
+                    <span><p style="color:red">passwords do not match</p></span>
+                    
+                    </aura:if>
+                    
+                    
+                    <br/>
+          
+                        
+          <lightning:textarea aura:id="userform" label="Address"  
+                             name="Address"
+                             value="{!v.user.LMS_CustomerAddress__c}"/>
+            
+        <!--    <lightning:select aura:id="userform" label="State"  
+                             name="State"
+                             value="{!v.user.LMS_CustomerState__c}">
+                             
+                <option value="AndhraPradesh">Andhra Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Goa">Goa</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Delhi">Delhi</option>
+                 <option value="TamilNadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+            
+            </lightning:select>-->
+                 
+                 <lightning:select aura:id="userform" label="City"  
+                              name="dependentCityPicklist"
+                             value="{!v.user.LMS_CustomerCity__c}"
+                             disabled="{!v.disabledCityPick}"
+                              >
+                <option value="">None</option>
+                <aura:iteration items="{!v.dependentCityOptions}" var="dc">
+                    <option value="{!dc.value}">{!dc.text}</option>
+               </aura:iteration>
+            </lightning:select>  
+        
+                    </div>
+                        </div>
+                
+                
+                
+                <div class="slds-text-heading_medium" align ="left"><strong>Security Question</strong></div><br/>
+                <div class="slds-text-heading_small" align ="left"><p>in case you forget your password</p></div><br/>
+                
+               <div class="slds-grid slds-gutters">    
+       <div class="slds-col" >
+       <lightning:select aura:id="userform" label="Security Question" name="securityQuestion" 
+                         value="{!v.user.LMS_CustomerSecurityQuestion__c}" required="true">
+                           <option value="In what city were you born?">In what city were you born?</option>
+                           <option value="What is your mother maiden name?">What is your mother maiden name?</option>
+                        <option value="What is your pet name?">What is your pet name?</option>
+                           <option value="What is the name of your favourite childhood friend?">What is the name of your favourite childhood friend?</option>
+                           <option value="In what city was your first job?">In what city was your first job?</option>
+        </lightning:select><br/>
+            </div>
+            <div class="slds-col" >
+                        
+       <lightning:input aura:id="userform" label="Answer" name="Answer"
+                        value="{!v.user.LMS_CustomerAnswer__c}" required="true" pattern="[a-zA-Z]*"
+                        messageWhenPatternMismatch="Please enter only characters."/><br/>
+                        </div>
+                </div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+    
+                
+                    <br/> <lightning:button variant="success" label="Register as Customer" 
+                                            onclick="{!c.registerUser}" />
+         
+    </form>
+      </lightning:layoutItem>
+        
+    </lightning:layout>
+                
+                
+             
+</aura:component>

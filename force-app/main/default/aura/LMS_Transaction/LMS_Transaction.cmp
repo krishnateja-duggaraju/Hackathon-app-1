@@ -1,0 +1,21 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller = "LMS_TransactionController" >
+    <aura:attribute name = "amount" type = "String" />
+    <aura:attribute name = "acc" type = "LMS_Payment__c" />
+    <div class="slds-text-heading_medium" align ="left"><b style ="color:green">Card Details</b></div><br/>
+    <lightning:card  title='Account Details' iconName="standard:account" >
+       
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+            <tr class="slds-hint-parent">
+            <td><b>Account Holder</b></td><td>:</td> <td value ="{!v.acc.Name}">{!v.acc.LMS_AccoutHolderName__c}</td>
+            </tr>
+            <tr class="slds-hint-parent">
+            <td><b>Amount to Pay</b></td><td>:</td> <td>{!v.amount}</td>
+            </tr>
+            <tr class="slds-hint-parent" >
+            <td colspan ='2'><lightning:button variant="brand" label="Continue to Pay" onclick="{!c.payAmount}" /> </td>
+            </tr>
+        </table>
+    </lightning:card>
+    
+    
+</aura:component>

@@ -1,0 +1,21 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+   
+    <aura:attribute name="options" type="List" default="[
+                        {'label': 'Agent', 'value': 'option1'},
+                        {'label': 'Customer', 'value': 'option2'},
+                        {'label': 'Owner', 'value': 'option3'}
+                                                         ]"/>
+   
+    <aura:attribute name="value" type="String" default="option2"/>
+    <aura:attribute name = "customerId" type = "String" />
+   
+    <lightning:radioGroup name="radioGroupDisabled"
+                          label="You are"
+                          options="{!v.options }"
+                          value="{!v.value }"
+                          type="radio"
+                          disabled="true"/>
+    <br/>
+    <lightning:button variant="success" label="Submit" onclick="{! c.clickSubmit}"/>
+   
+</aura:component>

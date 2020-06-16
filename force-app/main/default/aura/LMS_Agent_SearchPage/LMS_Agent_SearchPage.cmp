@@ -1,0 +1,153 @@
+<aura:component implements="flexipage:availableForAllPageTypes"  access="global" controller="LMS_Agent_SearchController">
+    <aura:attribute name="searchOwnerResult" type="List" description="use for store and display owner list return from server"/>
+    <aura:attribute name="OwnerMessage" type="boolean" default="false" description="use for display no record found message"/>
+    <aura:attribute name="searchCustomerResult" type="List" description="use for store and display customer list return from server"/>
+    <aura:attribute name="CustomerMessage" type="boolean" default="false" description="use for display no record found message"/>
+	<aura:attribute name="TotalNumberOfOwnerRecord" type="integer" default="0" description="use for display Number of records"/>
+	<aura:attribute name="TotalNumberOfCustomerRecord" type="integer" default="0" description="use for display Number of records"/>
+ <aura:attribute name ="agentId" type = "String" />
+    <!-- SHOW LOADING SPINNER--> 
+	<lightning:spinner variant="brand" size="large" aura:id="Id_spinner" class="slds-hide" />
+	<div class="slds-grid slds-gutters">
+        <div class="slds-col">
+	<div class="slds-m-around_medium">
+        <!-- SEARCH INPUT AND SEARCH BUTTON--> 
+    <lightning:layout>
+         <lightning:layoutItem size="4" padding="around-small">
+            <lightning:button onclick="{!c.SearchOwners}"
+                              variant="brand"
+                              label="Search Owners"
+                              /> 
+              </lightning:layoutItem>
+        
+    </lightning:layout>
+
+    <!-- TOTAL RECORDS BADGES--> 
+        <div class="slds-m-around_x-small">
+        <lightning:badge label="{!v.TotalNumberOfOwnerRecord}" />
+    </div>
+
+    <!-- ERROR MESSAGE IF NOT RECORDS FOUND-->
+        <aura:if isTrue="{!v.OwnerMessage}">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">No Records Found...</h2>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+   
+         <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate" title="S.no">S.No</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Last Name">Last Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Email / UserName">Email / UserName</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Phone">Phone</div>
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.searchOwnerResult}" var="owner" indexVar="count">
+                <tr>
+                    <td>
+                        <div class="slds-truncate">{!count + 1}</div>
+                    </td>
+                    
+                    <td>
+                        <div class="slds-truncate">{!owner.LMS_OwnerLastName__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!owner.LMS_OwnerEmail__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!owner.LMS_OwnerPhone__c}</div>
+                    </td>
+
+                </tr>
+            </aura:iteration>
+            </tbody>
+                 </table>
+    </div>
+        </div>
+        <div class="slds-col">
+            <div class="slds-m-around_medium">
+        <!-- SEARCH INPUT AND SEARCH BUTTON--> 
+    <lightning:layout>
+         <lightning:layoutItem size="4" padding="around-small">
+            <lightning:button onclick="{!c.SearchCustomers}"
+                              variant="brand"
+                              label="Search Customers"
+                              /> 
+              </lightning:layoutItem>
+        
+    </lightning:layout>
+
+    <!-- TOTAL RECORDS BADGES--> 
+        <div class="slds-m-around_x-small">
+        <lightning:badge label="{!v.TotalNumberOfCustomerRecord}" />
+    </div>
+
+    <!-- ERROR MESSAGE IF NOT RECORDS FOUND-->
+        <aura:if isTrue="{!v.CustomerMessage}">
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="alert">
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small">No Records Found...</h2>
+                </div>
+            </div>
+        </div>
+    </aura:if>
+    
+              <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+        <thead>
+            <tr class="slds-text-title_caps">
+                <th scope="col">
+                    <div class="slds-truncate" title="S.no">S.No</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Last Name">Last Name</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Email / UserName">Email / UserName</div>
+                </th>
+                <th scope="col">
+                    <div class="slds-truncate" title="Phone">Phone</div>
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <aura:iteration items="{!v.searchCustomerResult}" var="customer" indexVar="count">
+                <tr>
+                    <td>
+                        <div class="slds-truncate">{!count + 1}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_Last_Name__c}</div>
+                    </td>
+                     <td>
+                        <div class="slds-truncate">{!customer.LMS_Email__c}</div>
+                    </td>
+                    <td>
+                        <div class="slds-truncate">{!customer.LMS_Phone__c}</div>
+                    </td>
+                   
+                    
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+    </div>
+        </div>
+    </div>
+</aura:component>

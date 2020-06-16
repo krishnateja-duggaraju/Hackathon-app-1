@@ -1,0 +1,170 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_AgentController">
+    <aura:attribute name="agent" type="LMS_Agent__c"
+                    default="{ 'sobjectType': 'LMS_Agent__c',
+                        'LMS_AgentFirstName__c': '',
+                        'LMS_AgentLastName__c': '',
+                        'LMS_AgentEmail__c': '',
+                        'LMS_AgentPassword__c': '',
+                        'LMS_AgentConfirmPassword__c':'',
+                        'LMS_AgentPhone__c':'' ,
+                        'LMS_AgentAddress__c': '',
+                        'LMS_AgentCountry__c': '',
+                        'LMS_AgentState__c': '',
+                        'LMS_AgentCity__c': '',
+                        'LMS_AgentPostalCode__c': '',
+                        'LMS_AgentSecurityQuestion__c': '',
+                        'LMS_AgentAnswer__c': ''}"/>
+     <!-- PAGE HEADER -->
+    <aura:attribute name="parentOptions" type="List"/>
+    <aura:attribute name="dependentPicklist" type="Object"/>
+    <aura:attribute name="dependentOptions" type="List"/>
+     <aura:attribute name="dependentCityPicklist" type="Object"/>
+    <aura:attribute name="dependentCityOptions" type="List"/>
+    <aura:attribute name="disabledPick" type="Boolean" default="true"/>
+    <aura:attribute name="disabledCityPick" type="Boolean" default="true"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <c:LMS_header_with_image/> <br/>
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="7">
+           
+           <lightning:layout verticalAlign="center" horizontalAlign="center" >
+            <div class="slds-text-heading_medium"><b>Agent Registration Form</b></div>
+            </lightning:layout><br/>
+        <form class="slds-form--stacked font">  
+             <div class="slds-grid slds-gutters">
+  				<div class="slds-col">
+            <lightning:input class="slds-size_8-of-12" aura:id="agentForm" label="First Name"
+                             name="firstName" maxlength="20" pattern="[a-zA-Z]*" 
+                 			messageWhenPatternMismatch="Please use only letters."
+                             value="{!v.agent.LMS_AgentFirstName__c}"
+                             /> 
+                    <br/>
+             <lightning:input class="slds-size_8-of-12" aura:id="agentForm" label="Email / UserName"
+                             name="emailId"
+                             type="email" maxlength="30" 
+                             pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" messageWhenPatternMismatch="Please enter a valid email address."
+                             value="{!v.agent.LMS_AgentEmail__c}"
+                             required="true"/>
+             <br/>
+            <lightning:input class="slds-size_8-of-12" aura:id="agentForm" label="Password"
+                             name="password"
+                             type="password" maxlength="15" minlength="8"
+                             pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$@#%]).{8,15})"
+                             messageWhenPatternMismatch="Password length must be atleast 8 characters which contain atleast one uppercase letter, lowercase letter,digit and special character."
+                             value="{!v.agent.LMS_AgentPassword__c}"
+                             required="true"/>
+             <br/>
+             <lightning:textarea class="slds-size_8-of-12" aura:id="agentForm" label="Address"  
+                             name="address"
+                             value="{!v.agent.LMS_AgentAddress__c}"/>
+             <br/>
+             <lightning:select  class="slds-size_8-of-12" aura:id="depPicklist" label="State"  
+                              name="dependentPicklist"
+                             value="{!v.agent.LMS_AgentState__c}"
+                             disabled="{!v.disabledPick}"
+                               onchange="{!c.PickCityChange}">
+                <option value="">None</option>
+                <aura:iteration items="{!v.dependentOptions}" var="d">
+                    <option value="{!d.value}">{!d.text}</option>
+               </aura:iteration>
+        	</lightning:select>
+                    
+          <br/>
+                    <lightning:select class="slds-size_8-of-12" aura:id="agentForm" label="Security Question" name="securques" 
+                        required="true" value="{!v.agent.LMS_AgentSecurityQuestion__c}">
+                          <option value="Please Choose One">Please Choose One</option>
+                    <option value="In what city were you born?">In what city were you born?</option>
+                      <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                       <option value="What was your childhood nick name?">What was your childhood nick name?</option>
+                       <option value="What is the name of your favourite childhood friend?">What is the name of your favourite childhood friend?</option>
+                         <option value="In what city was your first job?">In what city was your first job?</option>
+            </lightning:select>
+                <br/>
+                    
+            <lightning:input class="slds-size_8-of-12" aura:id="agentForm" label="Postal Code"  
+                             name="postalCode" maxlength="6" minlength="5"  pattern="^[0-9_ ]*$"
+                             messageWhenPatternMismatch="Please enter digits only."
+                             value="{!v.agent.LMS_AgentPostalCode__c}"/> <br/>
+                 </div>
+  				<div class="slds-col">
+            <lightning:input aura:id="agentForm" label="Last Name"
+                             name="lastName" maxlength="20" pattern="[a-zA-Z]*" 
+                 			 messageWhenPatternMismatch="Please use only letters."
+                             value="{!v.agent.LMS_AgentLastName__c}"
+                             required="true"/>
+                     
+                 
+            <br/>
+                      
+			
+             <lightning:input aura:id="agentForm" label="Phone"  
+                             name="phone" 
+                             value="{!v.agent.LMS_AgentPhone__c}"
+                             maxlength="10" minlength="10" pattern="^[0-9_ ]*$"
+                             messageWhenPatternMismatch="Please enter 10 digits"
+                             required="true"/>
+                      
+            <br/>
+            
+            <lightning:input aura:id="agentForm" label="Confirm Password"
+                             name="confirmPassword"
+                             type="password"
+                             value="{!v.agent.LMS_AgentConfirmPassword__c}"
+                             pattern="{!v.agent.LMS_AgentPassword__c}" maxlength="15" minlength="8"
+                             messageWhenPatternMismatch="Password and Confirm Password must be equal."
+                             required="true"/>
+                
+               
+            
+        <br/>
+            
+             <lightning:select aura:id="agentForm" label="City"  
+                              name="dependentCityPicklist"
+                             value="{!v.agent.LMS_AgentCity__c}"
+                             disabled="{!v.disabledCityPick}"
+                             >
+                <option value="">None</option>
+                <aura:iteration items="{!v.dependentCityOptions}" var="dc">
+                    <option value="{!dc.value}">{!dc.text}</option>
+               </aura:iteration>
+        	</lightning:select>  
+                <br/><br/> <br/>
+                
+            
+        	<lightning:select aura:id="parentPicklist" label="Country"  
+                              name="parentPicklist"
+                             value="{!v.agent.LMS_AgentCountry__c}" 
+                            onchange="{!c.PickChange}"> 
+                   <option value="">None</option>
+                <aura:iteration items="{!v.parentOptions}" var="p">
+                    <option value="{!p.value}">{!p.text}</option>
+                </aura:iteration>
+        	</lightning:select>
+                    
+                    <br/>
+                    <lightning:input aura:id="agentForm" label="Answer"  
+                             name="answer" 
+                             value="{!v.agent.LMS_AgentAnswer__c}" required="true"/>
+
+                 </div></div>
+      
+        
+             
+        <lightning:layout verticalAlign="center" horizontalAlign="center" >
+
+            <lightning:button label="Register" 
+                              class="slds-m-top--medium"
+                              variant="brand"
+                              onclick="{!c.clickCreate}"/>
+                 </lightning:layout>
+           
+        </form>-
+            
+
+        </lightning:layoutItem>
+        
+    </lightning:layout>
+
+    
+</aura:component>

@@ -1,0 +1,31 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="LMS_CustomerController" >
+    <aura:attribute name = "username" type = "string" />
+    <aura:attribute name = "password" type = "string" />
+        <aura:attribute name = "customer" type = "LMS_Customer__c" />
+
+
+    <lightning:layout>
+    <lightning:layoutItem padding="around-small" size="10">
+    <form class="slds-form--stacked font">
+
+        
+        
+        
+    
+          <div class="slds-text-heading_medium"><strong>Customer Login Form</strong></div><br/>
+    	<lightning:input aura:id="userloginform" value="{!v.username}" label="UserName" type="text"  name="username"  required="true" placeholder="Enter your username"/><br/>
+    	<lightning:input aura:id="userloginform" value="{!v.password}" type="password" label="Password" name="password" required="true" placeholder="Enter your password"/>
+    <div style="height:30px;">     <lightning:button  class="slds-m-top--medium" label="New Customer? Register here. " variant= "base" onclick="{!c.navigateToMyComponent}" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </div>
+    <div style="height:40px;">      <lightning:button label="Forgot Password" 
+                              class="slds-m-top--medium"
+                              variant="base"
+                              onclick="{!c.clickForgotPassword}"/><br/>
+         </div><br/>
+    	<lightning:button variant="brand" label="Login" onclick="{!c.loginCustomer}" /> 
+        
+    </form>
+ 
+          </lightning:layoutItem>
+       </lightning:layout>   
+   
+</aura:component>

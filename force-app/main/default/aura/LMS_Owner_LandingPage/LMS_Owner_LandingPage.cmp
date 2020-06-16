@@ -1,0 +1,28 @@
+<aura:component>
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'Agent', 'value': 'option1'},
+    {'label': 'Customer', 'value': 'option2'},
+    {'label': 'Owner', 'value': 'option3'}
+    ]"/>
+    
+
+    <aura:attribute name="value" type="String" default="option3"/>
+    <aura:attribute name = "ownerId" type = "String" />
+    
+
+   <c:LMS_header_with_image/> <br/>
+    <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="6"><br/>
+			
+    <lightning:radioGroup name="radioGroupDisabled"
+                          label="YOU ARE"
+                          options="{! v.options }"
+                          value="{! v.value }"
+                          type="radio"
+                          disabled="true"/><br></br>
+    <lightning:button variant="brand" label="Submit" title="submit" onclick="{! c.clickSubmit}" />
+
+        </lightning:layoutItem>
+    </lightning:layout>
+    
+</aura:component>

@@ -1,0 +1,32 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller ="LMS_PickListController" >
+    
+    <aura:attribute name="property" type="Object" />
+    <aura:attribute name="countries" type="Object" />
+    
+    
+    <c:LMS_PicklistComponent sObjectName="LMS_Property__c" fieldName="Country__c" picklistValues="{!v.countries}" />
+    
+    <c:header/>
+    
+        <lightning:layout>
+        <lightning:layoutItem padding="around-small" size="3">
+		<form class="slds-form--stacked"> 
+            <div class="slds-grid slds-gutters">
+  				<div class="slds-col">
+
+    		<lightning:select value="{!v.property.Country__c}">       
+            <option value="">Choose one...</option>
+            <aura:iteration items="{!v.countries}" var="item">
+                <option value="{!item.value}">
+                    {!item}
+                </option>
+            </aura:iteration>
+        </lightning:select>
+            
+           
+            
+                </div></div></form></lightning:layoutItem></lightning:layout>
+        
+    
+   
+</aura:component>
